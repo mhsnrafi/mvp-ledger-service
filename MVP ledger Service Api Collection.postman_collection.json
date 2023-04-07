@@ -1,0 +1,122 @@
+{
+	"info": {
+		"_postman_id": "401c1a0a-fb45-4fdd-8140-736327d87450",
+		"name": "MVP ledger Service Api Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add funds",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Bearer-Token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NjUyMjAyNTI3OTg2MjY2NTI1IiwiZXhwIjoxNjgwODc0NzYxLCJpYXQiOjE2ODA3ODIzNjEsImVtYWlsIjoibW9oc2luQGNoZWNrb3V0LmV4YW1wbGUiLCJ0eXBlIjoiYWNjZXNzIn0.u5KGMVaJUwvl7s4-yGuzEK2GVSjYREc1LpnWNIzrADI",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"amount\": 244.34\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/v1/users/9f3a1d82c5e74e2b/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"v1",
+						"users",
+						"9f3a1d82c5e74e2b",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate Access Token Reuest",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Email\": \"mohsin@checkout.example\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/auth/generate_access_token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"auth",
+						"generate_access_token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"Token\": \"refresh_token\",\n  \"Email\": \"user@example.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/auth/refresh",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"auth",
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Balance",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Transaction History",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

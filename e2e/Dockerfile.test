@@ -1,0 +1,31 @@
+# Use the official Golang image as a base
+FROM golang:1.19-bullseye
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the go.mod and go.sum files to the working directory
+COPY go.mod go.sum ./
+
+# Download dependencies listed in go.mod and go.sum
+RUN go mod download
+
+# Copy the entire source code into the container
+COPY . .
+
+# Install any additional tools and libraries needed for the tests
+RUN apt-get update && \
+    apt-get install -y netcat
+
+# Copy the wait-for-services.sh script to the container
+COPY e2e/wait-for-services.sh /app/e2e/wait-for-services.sh
+
+# Grant execution permissions to the wait-for-services.sh script
+RUN chmod +x /app/e2e/wait-for-services.sh
+
+# Build your application if necessary (skip if your tests don't require a built binary)
+RUN go build -o main .
+
+# Set the default command for the container to run your tests
+CMD ["go", "test", "-v", "./e2e"]
+

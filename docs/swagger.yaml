@@ -1,0 +1,184 @@
+definitions:
+  models.AddFundsRequest:
+    properties:
+      amount:
+        type: number
+    type: object
+  models.AuthRequest:
+    properties:
+      email:
+        type: string
+    type: object
+  models.RefreshRequest:
+    properties:
+      email:
+        type: string
+      token:
+        type: string
+    type: object
+  models.Response:
+    properties:
+      data:
+        additionalProperties: {}
+        type: object
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+info:
+  contact: {}
+paths:
+  /access:
+    post:
+      consumes:
+      - application/json
+      description: Generate new access tokens for the provided email.
+      parameters:
+      - description: Auth Request
+        in: body
+        name: authReq
+        required: true
+        schema:
+          $ref: '#/definitions/models.AuthRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Generate new access tokens.
+      tags:
+      - Tokens
+  /refresh:
+    post:
+      consumes:
+      - application/json
+      description: Handle the request for token refresh by validating the refresh
+        token, generating new access and refresh tokens and returning the response.
+      parameters:
+      - description: Refresh Request
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/models.RefreshRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Handle the request for token refresh.
+      tags:
+      - Tokens
+  /users/{uid}/add:
+    post:
+      consumes:
+      - application/json
+      description: Add funds to a user's account by the given UID and amount
+      parameters:
+      - description: User ID
+        in: path
+        name: uid
+        required: true
+        type: string
+      - description: Amount to add
+        in: body
+        name: AddFundsRequest
+        required: true
+        schema:
+          $ref: '#/definitions/models.AddFundsRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            type: Bad
+        "409":
+          description: Conflict
+          schema:
+            type: Conflict
+        "500":
+          description: Internal Server Error
+          schema:
+            type: Internal
+      summary: Add funds to a user's account
+      tags:
+      - Users
+  /users/{uid}/balance:
+    get:
+      consumes:
+      - application/json
+      description: Get the balance of a user by the given UID
+      parameters:
+      - description: User ID
+        in: path
+        name: uid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            type: Not
+      summary: Get user's balance
+      tags:
+      - Users
+  /users/{uid}/transactions:
+    get:
+      consumes:
+      - application/json
+      description: Get the transaction history of a user by the given UID with pagination
+      parameters:
+      - description: User ID
+        in: path
+        name: uid
+        required: true
+        type: string
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Limit per page
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            type: Not
+      summary: Get user's transaction history
+      tags:
+      - Users
+swagger: "2.0"
