@@ -1,4 +1,4 @@
-## Challenge Bitburst MVP Ledger Service
+## Challenge  MVP Ledger Service
 ### Overview
 The Bitbrust Ledger Service is a system designed to manage user balances, transactions, and check transaction history. The system is built using Golang and leverages Docker and Docker Compose for containerization and orchestration. The database used for storing user and transaction information is PostgreSQL, while Redis serves as a caching layer for the application.
 
