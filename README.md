@@ -32,8 +32,8 @@ The system consists of the following components:
    3. Golang: https://golang.org/doc/install
 2. Clone the project repository and navigate to the project directory:
 ```git
-git clone <repository-url>
-cd <project-directory>
+git clone https://github.com/mhsnrafi/mvp-ledger-service.git
+cd mvp-ledger-service
  ```
 
 ## Running the Project
